@@ -1,7 +1,7 @@
 import argparse
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import SGDClassifier
 from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_score, precision_score, recall_score, \
     f1_score
 from sklearn.model_selection import train_test_split
@@ -35,7 +35,7 @@ def fit_tfidf(train_df, test_df):
 
 
 def fit_model(train_X, train_y, random_state=42):
-    clf_tfidf = LogisticRegression(solver='sag', random_state=random_state)
+    clf_tfidf = SGDClassifier(loss='modified_huber', random_state=random_state)
     clf_tfidf.fit(train_X, train_y)
     return clf_tfidf
 
